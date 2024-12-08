@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/bonka.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="stylesheet" href="App.css">
+
+    <title>Drink</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+        <div id="TITILE">IŠGERIAU </div>
+        <img src="homer.png" id="randomidkodas" width='400' height='auto'  alt="bonka a"></img>
+        <img src="taure_.png" id="rotatable-image" alt="bonka a"></img>
+        <video id="main_video_player" src="https://gerk.nelagina.lt/hello.mp4" loop="true" preload="auto" ></video>
+    </div>
+    <div>
+        
+        <button onClick='gerti()' id="gerti" >GERTI</button>
+    </div>
+    <audio id="drink">
+      <source src="drink.mp3" type="audio/ogg">
+      
+    </audio>
+  <script>
+   
+    async function gerti() {
+      var TITILEa = document.getElementById("TITILE")
+      var homer = document.getElementById("randomidkodas")
+      var button = document.getElementById("gerti")
+      var taure = document.getElementById("rotatable-image")
+      var vid = document.getElementById("main_video_player")
+      var drink = document.getElementById("drink"); 
+ 
+      drink.play()
+      homer.style.display = 'inline';
+      button.style.display = 'none';
+      rotateImage(-36)
+      await delay(1000);
+      rotateImage(-20)
+      taure.src="taure-1.png";
+      await delay(1000);
+      rotateImage(-10)
+      taure.src="taure-2.png";
+      await delay(1000);
+      rotateImage(-5)
+      taure.src="taure-3.png";
+      await delay(1000);
+      rotateImage(-1)
+      document.getElementById('rotatable-image').style.transform = `rotate(0deg)`
+      taure.src="taure_duščia.png";
+      await delay(500);
+      homer.style.display = 'none';
+      TITILEa.style.display = 'block';
+      await delay(2000);
+      TITILEa.style.display = 'none';
+      taure.style.display = 'none';
+      vid.style.display = 'block';
+      vid.play();
+      
+      if (vid.requestFullscreen) {
+          vid.requestFullscreen();
+      } else if (vid.mozRequestFullScreen) { // Firefox
+          vid.mozRequestFullScreen();
+      } else if (vid.webkitRequestFullscreen) { // Chrome, Safari, Opera
+          vid.webkitRequestFullscreen();
+      } else if (vid.msRequestFullscreen) { // IE/Edge
+          vid.msRequestFullscreen();
+      } else {
+          alert("Fullscreen is not supported on this browser.");
+      }
+      await delay(15000);
+      redirectToPage(); 
+      
+    }
+    
+    let currentRotation = 0;
+    async function delay(delayInms) {
+      return new Promise(resolve  => {
+        setTimeout(() => {
+          resolve(2);
+        }, delayInms);
+      });
+    }
+    
+    function rotateImage(degrees) {
+        currentRotation += degrees;
+        document.getElementById('rotatable-image').style.transform = `rotate(${currentRotation}deg)`;
+    }
+    function redirectToPage() {
+        window.location = "https://nelagina.lt";
+    }
+
+    // Listen for fullscreen changes
+    document.addEventListener("fullscreenchange", () => {
+        const isFullscreen = !!document.fullscreenElement; // Check if fullscreen is active
+        if (!isFullscreen) {
+            // Exited fullscreen, perform redirection
+            redirectToPage();
+        }
+    });
+
+    // Add vendor-specific fullscreenchange events for broader browser support
+    document.addEventListener("webkitfullscreenchange", () => {
+        const isFullscreen = !!document.webkitFullscreenElement;
+        if (!isFullscreen) {
+            redirectToPage();
+        }
+    });
+
+    document.addEventListener("mozfullscreenchange", () => {
+        const isFullscreen = !!document.mozFullScreenElement;
+        if (!isFullscreen) {
+            redirectToPage();
+        }
+    });
+
+    document.addEventListener("msfullscreenchange", () => {
+        const isFullscreen = !!document.msFullscreenElement;
+        if (!isFullscreen) {
+            redirectToPage();
+        }
+    });
+
+</script>
+  </body>
+</html>
